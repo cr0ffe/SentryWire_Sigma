@@ -1,0 +1,1 @@
+"query": "event_type:http AND (http.client.original.keyword:*WebDAV* OR http.url.keyword:*webdav*) AND (fileinfo.filename:*dosexec* OR http.url.keyword:*.exe)"
