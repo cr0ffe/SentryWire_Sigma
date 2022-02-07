@@ -1,0 +1,55 @@
+{
+    "rule_id": "aac2fd97-bcba-491b-ad66-a6edf89c71bf",
+    "id": "aac2fd97-bcba-491b-ad66-a6edf89c71bf",
+    "author": [
+        "SOC Prime",
+        "Adam Swan",
+        "Chris Roffe",
+        "https://elastic-content-share.eu"
+    ],
+    "from": "now-15m",
+    "index": [
+        "investigate_*"
+    ],
+    "interval": "5m",
+    "language": "kql",
+    "output_index": "investigate_*",
+    "references": [
+        "http://carnal0wnage.attackresearch.com/2012/06/webdav-server-to-download-custom.html",
+        "https://github.com/OTRF/detection-hackathon-apt29"
+    ],
+    "false_positives": [
+        "unknown"
+    ],
+    "risk_score": 50,
+    "name": "Executable from Webdav",
+    "description": "Detects executable access via webdav6. Can be seen in APT 29 such as from the emulated APT 29 hackathon https://github.com/OTRF/detection-hackathon-apt29/",
+    "query": "event_type:http AND (http.client.original.keyword:*WebDAV* OR http.url.keyword:*webdav*) AND (fileinfo.filename:*dosexec* OR http.url.keyword:*.exe)",
+    "severity": "medium",
+    "tags": [
+        "SentryWire",
+        "Sigma",
+        "elastic-content-share"
+    ],
+    "to": "now",
+    "type": "query",
+    "threat": [
+        {
+            "framework": "MITRE ATT&CK",
+            "tactic": {
+                "id": "TA0011",
+                "name": "Command and Control",
+                "reference": "https://attack.mitre.org/tactics/TA0011"
+            },
+            "technique": [
+                {
+                    "id": "T1105",
+                    "name": "Ingress Tool Transfer",
+                    "reference": "https://attack.mitre.org/techniques/T1105"
+                }
+            ]
+        }
+    ],
+    "throttle": "no_actions",
+    "note": ""
+}
